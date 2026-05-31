@@ -7,7 +7,7 @@ class ClockUtil{
     var callBackClock: CallBackClock?
     
     var timer: Timer?
-    
+        
     func start(){
         
         timer = Timer.scheduledTimer(
@@ -28,7 +28,7 @@ class ClockUtil{
     
     @objc private func tickAccourd(){
         
-        if count < 5{
+        if count < 7{
             count += 1
             callBackClock?.tick(ticks: count)
         }

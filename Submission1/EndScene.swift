@@ -15,6 +15,9 @@ class EndScene: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        end_LBL_endScore.text = "\(score)"
+        
+        end_LBL_winnerName.text = "\(winner) Won!"
         
     }
     

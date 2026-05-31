@@ -18,7 +18,7 @@ class GameScene: UIViewController {
     
     @IBOutlet weak var game_LBL_westScore: UILabel!
     
-    private let POINTS_TO_WIN: Int = 0
+    private let POINTS_TO_WIN: Int = 2
     
     var playerName: String = ""
     
@@ -28,7 +28,41 @@ class GameScene: UIViewController {
     
     var location: Bool = false
     
+    private var roundTimer: Int = 0
+    
     private var clock = ClockUtil()
+    
+    private var Deck: [Card] = [
+        Card(name: "The Magician", value: 1, imageName: "01-TheMagician"),
+        Card(name: "The High Priestess", value: 2, imageName: "02-TheHighPriestess"),
+        Card(name: "The Empress", value: 3, imageName: "03-TheEmpress"),
+        Card(name: "The Emperor", value: 4, imageName: "04-TheEmperor"),
+        Card(name: "The Hierophant", value: 5, imageName: "05-TheHierophant"),
+        Card(name: "The Lovers", value: 6, imageName: "06-TheLovers"),
+        Card(name: "The Chariot", value: 7, imageName: "07-TheChariot"),
+        Card(name: "Strength", value: 8, imageName: "08-Strength"),
+        Card(name: "The Hermit", value: 9, imageName: "09-TheHermit"),
+        Card(name: "Wheel Of Fortune", value: 10, imageName: "10-WheelOfFortune"),
+        Card(name: "Justice", value: 11, imageName: "11-Justice"),
+        Card(name: "The Hanged Man", value: 12, imageName: "12-TheHangedMan"),
+        Card(name: "Death", value: 13, imageName: "13-Death"),
+        Card(name: "Temperance", value: 14, imageName: "14-Temperance"),
+        Card(name: "The Devil", value: 15, imageName: "15-TheDevil"),
+        Card(name: "The Tower", value: 16, imageName: "16-TheTower"),
+        Card(name: "The Star", value: 17, imageName: "17-TheStar"),
+        Card(name: "The Moon", value: 18, imageName: "18-TheMoon"),
+        Card(name: "The Sun", value: 19, imageName: "19-TheSun"),
+        Card(name: "Judgement", value: 20, imageName: "20-Judgement"),
+        Card(name: "The World", value: 21, imageName: "21-TheWorld"),
+        Card(name: "The Fool" , value: 22, imageName: "00-TheFool")
+    ]
+    
+    private let BlankCard = Card(name: "", value: 0, imageName: "CardBacks")
+    
+    private var randomIndexEast: Int = 0
+    
+    private var randomIndexWest: Int = 0
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,11 +89,27 @@ class GameScene: UIViewController {
 
     
     func updateUI(value: Int) {
-        game_LBL_time.text = "Time: \(value)"
+        
+        game_LBL_time.text = "\(roundTimer)"
+        
+        let roundTime = value % 7
+        
+        if roundTime == 2 {
+            hideCards()
+            roundTimer = 0
+            game_LBL_time.text = "\(roundTimer)"
+        }
+        
+        if value > 0 && roundTime == 0 {
+            gameMove()
+            roundTimer = 0
+            game_LBL_time.text = "\(roundTimer)"
+        }
         
         if pcScore == POINTS_TO_WIN || playerScore == POINTS_TO_WIN {
             endGame()
         }
+        roundTimer += 1
     }
     
     func endGame() {
@@ -67,6 +117,7 @@ class GameScene: UIViewController {
         clock.stop()
         performSegue(withIdentifier: "goToEnd", sender: self)
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToEnd" {
             let gameOverVC = segue.destination as! EndScene
@@ -74,7 +125,6 @@ class GameScene: UIViewController {
             if pcScore > playerScore {
                 gameOverVC.score = POINTS_TO_WIN
                 gameOverVC.winner = playerName
-
             }
             else {
                 gameOverVC.score = POINTS_TO_WIN
@@ -83,17 +133,86 @@ class GameScene: UIViewController {
         }
     }
     
+    func showCard(){
+        randomIndexEast = Int.random(in: 0..<Deck.count)
+        
+        randomIndexWest = Int.random(in: 0..<Deck.count)
+        
+        while randomIndexEast == randomIndexWest {
+            let randomIndexWest = Int.random(in: 0..<Deck.count)
+        }
+
+        game_IMG_eastCard.image = UIImage(named: Deck[randomIndexEast].imageName)
+        game_IMG_westCard.image = UIImage(named: Deck[randomIndexWest].imageName)
+        
+    }
     
+    func hideCards() {
+        game_IMG_eastCard.image = UIImage(named: BlankCard.imageName)
+        game_IMG_westCard.image = UIImage(named: BlankCard.imageName)
+    }
     
+    func gameMove() {
+        
+        showCard()
+        
+        let eastValue = Deck[randomIndexEast].value
+        let westValue = Deck[randomIndexWest].value
+        
+        if eastValue > westValue {
+            scoreWinner(isEastWinner: true)
+        } else if westValue > eastValue {
+            scoreWinner(isEastWinner: false)
+        } else {
+            showToast(message: "Tie!")
+        }
+    }
     
+    func scoreWinner(isEastWinner: Bool) {
+        
+        let playerIsEast = location
+        let playerWon = isEastWinner == playerIsEast
+        
+        if playerWon {
+            playerScore += 1
+            showToast(message: "Player Scored!")
+        } else {
+            pcScore += 1
+            showToast(message: "PC Scored!")
+        }
+        
+        updateScoreLabels()
+    }
+    
+    func updateScoreLabels() {
+        
+        if location {
+            game_LBL_eastScore.text = "\(playerScore)"
+            game_LBL_westScore.text = "\(pcScore)"
+        } else {
+            game_LBL_eastScore.text = "\(pcScore)"
+            game_LBL_westScore.text = "\(playerScore)"
+        }
+    }
     
     
     
 }
 
 extension  GameScene: CallBackClock {
-
+    
     func tick(ticks: Int) {
         updateUI(value: ticks)
+    }
+    
+    }
+
+extension GameScene {
+    
+    struct Card {
+        let name: String
+        let value: Int
+        let imageName: String
+        
     }
 }

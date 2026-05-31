@@ -110,37 +110,37 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qvg-WD-k32">
-                                <rect key="frame" x="15" y="72" width="45" height="21"/>
+                                <rect key="frame" x="15" y="72" width="45" height="20.333333333333329"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hs0-5Y-wGf">
-                                <rect key="frame" x="896" y="72" width="45" height="21"/>
+                                <rect key="frame" x="896" y="72" width="45" height="20.333333333333329"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h3k-H7-4sM">
-                                <rect key="frame" x="925" y="100" width="11" height="21"/>
+                                <rect key="frame" x="925" y="99.333333333333329" width="11" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eeE-2J-uYh">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stopwatch" translatesAutoresizingMaskIntoConstraints="NO" id="eeE-2J-uYh">
                                 <rect key="frame" x="425.66666666666669" y="97" width="105.00000000000006" height="91"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="g6z-OR-mpe">
-                                <rect key="frame" x="739" y="113" width="136" height="214"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CardBacks" translatesAutoresizingMaskIntoConstraints="NO" id="g6z-OR-mpe">
+                                <rect key="frame" x="739" y="-43.666666666666657" width="136" height="527.33333333333337"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4lN-v2-ghB">
-                                <rect key="frame" x="20" y="100" width="11" height="21"/>
+                                <rect key="frame" x="20" y="99.333333333333329" width="11" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9MW-pF-GG5">
-                                <rect key="frame" x="81" y="113" width="136" height="214"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CardBacks" translatesAutoresizingMaskIntoConstraints="NO" id="9MW-pF-GG5">
+                                <rect key="frame" x="81" y="-43.666666666666657" width="136" height="527.33333333333337"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="3ho-ty-4yE"/>
@@ -150,9 +150,7 @@
                             <constraint firstItem="4lN-v2-ghB" firstAttribute="leading" secondItem="3ho-ty-4yE" secondAttribute="leading" constant="20" id="68K-3i-tSi"/>
                             <constraint firstItem="3ho-ty-4yE" firstAttribute="trailing" secondItem="h3k-H7-4sM" secondAttribute="trailing" constant="20" id="69W-rR-GjP"/>
                             <constraint firstItem="eeE-2J-uYh" firstAttribute="top" secondItem="3ho-ty-4yE" secondAttribute="top" constant="35" id="8hK-bQ-oaf"/>
-                            <constraint firstItem="9MW-pF-GG5" firstAttribute="top" secondItem="qvg-WD-k32" secondAttribute="bottom" constant="20" id="Az4-wz-SaD"/>
                             <constraint firstItem="4lN-v2-ghB" firstAttribute="top" secondItem="qvg-WD-k32" secondAttribute="bottom" constant="7" id="B7M-EF-Ydk"/>
-                            <constraint firstItem="g6z-OR-mpe" firstAttribute="top" secondItem="Hs0-5Y-wGf" secondAttribute="bottom" constant="20" id="FJt-mY-qq8"/>
                             <constraint firstItem="g6z-OR-mpe" firstAttribute="width" secondItem="v2l-Fr-KWw" secondAttribute="height" multiplier="17:55" id="Knc-92-DQI"/>
                             <constraint firstItem="h3k-H7-4sM" firstAttribute="leading" secondItem="g6z-OR-mpe" secondAttribute="trailing" constant="50" id="Lb2-od-qF6"/>
                             <constraint firstItem="qvg-WD-k32" firstAttribute="top" secondItem="3ho-ty-4yE" secondAttribute="top" constant="10" id="M1I-Ij-PMK"/>
@@ -242,7 +240,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="CardBacks" width="300" height="527"/>
         <image name="east_earth" width="512" height="512"/>
+        <image name="stopwatch" width="512" height="512"/>
         <image name="west_earth" width="512" height="512"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
