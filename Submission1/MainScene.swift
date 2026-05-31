@@ -1,6 +1,8 @@
 import UIKit
+import CoreLocation
 
-class ViewController: UIViewController {
+
+class MainScene: UIViewController {
 
 
     @IBOutlet weak var main_IMG_east: UIImageView!
@@ -26,8 +28,9 @@ class ViewController: UIViewController {
     
     let hasLaunchedBefore = UserDefaults.standard.bool(forKey: "hasLaunchedBefore")
     
-    let playerName : String = UserDefaults.standard.string(forKey: "playerName") ?? ""
-
+    var playerName : String = UserDefaults.standard.string(forKey: "playerName") ?? ""
+    
+    let locationManager = CLLocationManager()
     
         
     override func viewDidLoad() {
@@ -43,7 +46,6 @@ class ViewController: UIViewController {
     
     func firstLaunch(){
         if !hasLaunchedBefore || playerName.isEmpty {
-            chooseName()
             UserDefaults.standard.set(true, forKey: "hasLaunchedBefore")
         }
         else
@@ -55,14 +57,83 @@ class ViewController: UIViewController {
         }
     }
     
-    func chooseName(){
-        
+    @IBAction func startGameClicked(_ sender: UIButton) {
+          performSegue(withIdentifier: "goToGame", sender: self)
+      }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToGame" {
+            let gameVC = segue.destination as! GameScene
+            gameVC.playerName = self.playerName
+            gameVC.location = self.location
+        }
     }
+    
+    
+    
+    //MARK: name
+    
+    @IBAction func enterNameClicked(_ sender: Any) {
+        if playerName.isEmpty {
+            chooseNameBox()
+            
+        }
+    }
+    
+    func chooseNameBox(){
+             let alertController = UIAlertController(title: "", message: "Enter your name", preferredStyle: .alert)
+
+             alertController.addTextField { (textField) in
+                 textField.placeholder = "Name"
+             }
+        
+             // add the buttons/actions to the view controller
+        
+             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+             let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
+
+                 // this code runs when the user hits the "save" button
+
+                 if alertController.textFields![0].text!.isEmpty{
+                     
+                     self.showToast(message: "Must Enter A Name")
+                     
+                 }
+                 else {
+                     
+                     let inputName = alertController.textFields![0].text
+                     
+                     UserDefaults.standard.set(inputName, forKey: "playerName")
+                     
+                     self.playerName = inputName!
+                     
+                     self.showToast(message: "Hello \(inputName!)")
+                     
+                     self.main_BTN_enterName.isHidden = true
+                     self.main_BTN_startGame.isHidden = false
+                     self.main_LBL_name.isHidden = false
+                     self.main_LBL_name.text = "Hello \(inputName!)"
+                     
+                 }
+
+             }
+
+             alertController.addAction(cancelAction)
+             alertController.addAction(saveAction)
+
+             present(alertController, animated: true, completion: nil)
+         
+    }
+    
+    
+    //MARK: location
     
     func getLocation(){
         
     }
     
+    
+    //MARK: can play?
     func checkIfCanPlay() -> Bool{
         if !(playerName.isEmpty && lat == 0.0){
             return true
@@ -73,5 +144,8 @@ class ViewController: UIViewController {
     }
 
 
+    @IBAction func myUnwindAction(unwindSegue: UIStoryboardSegue){
+    }
+    
 }
 

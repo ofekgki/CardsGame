@@ -43,7 +43,26 @@ class ClockUtil{
     
 }
 
+class LocationUtil{
+    
+    private var lat :Double = 0.0
+    
+    private var lon :Double = 0.0
+    
+    var callBackLocation: CallBackLocation?
+    
+    func getLocation(){
+        
+    }
+    
+    
+}
+
 protocol CallBackClock{
     func tick(ticks: Int)
     
+}
+
+protocol CallBackLocation{
+    func updateLocation(lat: Double, lon: Double)
 }
