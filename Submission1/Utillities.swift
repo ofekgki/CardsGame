@@ -18,8 +18,6 @@ class ClockUtil{
          repeats: true)
         
     }
-        
-    
     
     func stop(){
         timer?.invalidate()
@@ -28,19 +26,16 @@ class ClockUtil{
     
     @objc private func tickAccourd(){
         
-        if count < 7{
-            count += 1
-            callBackClock?.tick(ticks: count)
+        count += 1
+        
+        if count > 8 {
+            count = 1
         }
         
-        else {
-            count = 0
-            callBackClock?.tick(ticks: count)
-
+        callBackClock?.tick(ticks: count)
+        print("Tick - \(count)")
+        
         }
-    
-    }
-    
 }
 
 class LocationUtil{

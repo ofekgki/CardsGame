@@ -28,9 +28,12 @@ class GameScene: UIViewController {
     
     var location: Bool = false
     
-    private var roundTimer: Int = 0
+    private var roundTimer: Int = 1
     
     private var clock = ClockUtil()
+    
+    private var isFirst: Bool = true
+
     
     private var Deck: [Card] = [
         Card(name: "The Magician", value: 1, imageName: "01-TheMagician"),
@@ -90,27 +93,31 @@ class GameScene: UIViewController {
     
     func updateUI(value: Int) {
         
-        game_LBL_time.text = "\(roundTimer)"
-        
-        let roundTime = value % 7
-        
-        if roundTime == 2 {
-            hideCards()
-            roundTimer = 0
-            game_LBL_time.text = "\(roundTimer)"
+        if value <= 5 {
+            game_LBL_time.text = "\(value)"
+        } else {
+            game_LBL_time.text = "\(value - 5)"
         }
         
-        if value > 0 && roundTime == 0 {
+        // 5 seconds passed -> show cards
+        if value == 5 {
+            print("Show")
             gameMove()
-            roundTimer = 0
-            game_LBL_time.text = "\(roundTimer)"
         }
         
-        if pcScore == POINTS_TO_WIN || playerScore == POINTS_TO_WIN {
-            endGame()
+        // 3 seconds after show -> hide cards
+        if value == 8 {
+            print("Hide")
+            hideCards()
+            game_LBL_time.text = "0"
+            
+            if pcScore == POINTS_TO_WIN || playerScore == POINTS_TO_WIN {
+                endGame()
+            }
         }
-        roundTimer += 1
     }
+        
+  
     
     func endGame() {
         showToast(message: "Game Ended!!!")
