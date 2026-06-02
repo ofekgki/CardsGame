@@ -66,6 +66,9 @@ class GameScene: UIViewController {
     private var randomIndexWest: Int = 0
 
     
+    
+    // MARK: Start Of Class
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -117,27 +120,7 @@ class GameScene: UIViewController {
     }
         
   
-    
-    func endGame() {
-        showToast(message: "Game Ended!!!")
-        clock.stop()
-        performSegue(withIdentifier: "goToEnd", sender: self)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToEnd" {
-            let gameOverVC = segue.destination as! EndScene
-            
-            if pcScore > playerScore {
-                gameOverVC.score = POINTS_TO_WIN
-                gameOverVC.winner = "PC"
-            }
-            else {
-                gameOverVC.score = POINTS_TO_WIN
-                gameOverVC.winner = playerName
-            }
-        }
-    }
+    // MARK: game logic
     
     func showCard(){
         randomIndexEast = Int.random(in: 0..<Deck.count)
@@ -174,6 +157,12 @@ class GameScene: UIViewController {
         }
     }
     
+    func endGame() {
+        showToast(message: "Game Ended!!!")
+        clock.stop()
+        performSegue(withIdentifier: "goToEnd", sender: self)
+    }
+    
     func scoreWinner(isEastWinner: Bool) {
         
         let playerIsEast = location
@@ -198,6 +187,23 @@ class GameScene: UIViewController {
         } else {
             game_LBL_eastScore.text = "\(pcScore)"
             game_LBL_westScore.text = "\(playerScore)"
+        }
+    }
+    
+    // MARK: Scene Change
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToEnd" {
+            let gameOverVC = segue.destination as! EndScene
+            
+            if pcScore > playerScore {
+                gameOverVC.score = POINTS_TO_WIN
+                gameOverVC.winner = "PC"
+            }
+            else {
+                gameOverVC.score = POINTS_TO_WIN
+                gameOverVC.winner = playerName
+            }
         }
     }
 }

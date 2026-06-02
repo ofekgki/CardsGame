@@ -1,6 +1,9 @@
 import UIKit
 import CoreLocation
 
+
+//MARK: General
+
 extension UIViewController {
     
     func showToast(message: String, duration: Double = 2.0) {
@@ -38,7 +41,7 @@ extension UIViewController {
         }
     }
 }
-
+//MARK: Game Scene
 extension  GameScene: CallBackClock {
     
     func tick(ticks: Int) {
@@ -57,6 +60,7 @@ extension GameScene {
     }
 }
 
+// MARK: Main Scene
 
 extension MainScene: CLLocationManagerDelegate {
 
@@ -83,4 +87,24 @@ extension MainScene: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Location error: \(error.localizedDescription)")
     }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+
+        let latitude = location.coordinate.latitude
+        let longitude = location.coordinate.longitude
+
+        print("Latitude: \(latitude)")
+        print("Longitude: \(longitude)")
+        
+        lat = latitude
+        
+        print(lat)
+
+        // If you only need location once:
+        manager.stopUpdatingLocation()
+        
+        getLocation()
+    }
+
 }

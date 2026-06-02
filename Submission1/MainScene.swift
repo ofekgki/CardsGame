@@ -33,6 +33,9 @@ class MainScene: UIViewController {
     private let locationManager = CLLocationManager()
     
         
+    // MARK: Start Of Class
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         firstLaunch()
@@ -71,7 +74,7 @@ class MainScene: UIViewController {
     
     
     
-    //MARK: name
+    //MARK: Name
     
     @IBAction func enterNameClicked(_ sender: Any) {
         if playerName.isEmpty {
@@ -126,7 +129,7 @@ class MainScene: UIViewController {
     }
     
     
-    //MARK: location
+    //MARK: Location
     
     func getLocation(){
  
@@ -146,7 +149,7 @@ class MainScene: UIViewController {
     }
     
     
-    //MARK: can play?
+    //MARK: Can Play?
     public func checkIfCanPlay() -> Bool{
         return !playerName.isEmpty && lat != 0.0
 
@@ -156,28 +159,6 @@ class MainScene: UIViewController {
     @IBAction func myUnwindAction(unwindSegue: UIStoryboardSegue){
     }
     
-}
-
-extension MainScene {
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-
-        let latitude = location.coordinate.latitude
-        let longitude = location.coordinate.longitude
-
-        print("Latitude: \(latitude)")
-        print("Longitude: \(longitude)")
-        
-        lat = latitude
-        
-        print(lat)
-
-        // If you only need location once:
-        manager.stopUpdatingLocation()
-        
-        getLocation()
-    }
 }
 
 
