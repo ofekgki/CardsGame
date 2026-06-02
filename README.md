@@ -21,19 +21,19 @@ In order to start the game you must:
 - Give premission to location
 
 
-<img src="Screenshots/1_Start.jpg" width="300" alt="Start Screen">
+<img src="CardGame/Screenshots/1_Start.jpg" width="300" alt="Start Screen">
 
 #### Game Screen:
 
 -  Hope to get the better Card!
 -  Score 10 points in order to Win!
  
-<img src="Screenshots/2_Game.jpg" width="300" alt="Buttons Mode">
+<img src="CardGame/Screenshots/2_Game.jpg" width="300" alt="Buttons Mode">
 
 #### End Game Screen:
 
 - Return to start screen
 
-<img src="Screenshots/3_End.jpg" width="300" alt="End Game">
+<img src="CardGame/Screenshots/3_End.jpg" width="300" alt="End Game">
 
 
