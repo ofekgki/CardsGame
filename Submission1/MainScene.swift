@@ -24,23 +24,23 @@ class MainScene: UIViewController {
     
     var location: Bool = false // false - west , true - east
     
-    var canPlay: Bool = false
+    private var canPlay: Bool = false
     
-    let hasLaunchedBefore = UserDefaults.standard.bool(forKey: "hasLaunchedBefore")
+    private let hasLaunchedBefore = UserDefaults.standard.bool(forKey: "hasLaunchedBefore")
     
     var playerName : String = UserDefaults.standard.string(forKey: "playerName") ?? ""
     
-    let locationManager = CLLocationManager()
+    private let locationManager = CLLocationManager()
     
         
     override func viewDidLoad() {
         super.viewDidLoad()
         firstLaunch()
-        getLocation()
-        canPlay = checkIfCanPlay()
-        if canPlay{
-            main_BTN_startGame.isHidden = false
-        }
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        
         
     }
     
@@ -129,18 +129,27 @@ class MainScene: UIViewController {
     //MARK: location
     
     func getLocation(){
+ 
+        if lat >= 34.18754916832433 {
+            location = false
+
+        }
+        else {
+            location = true
+            
+        }
         
+        canPlay = checkIfCanPlay()
+        if canPlay{
+            main_BTN_startGame.isHidden = false
+        }
     }
     
     
     //MARK: can play?
-    func checkIfCanPlay() -> Bool{
-        if !(playerName.isEmpty && lat == 0.0){
-            return true
-        }
-        else{
-            return false
-        }
+    public func checkIfCanPlay() -> Bool{
+        return !playerName.isEmpty && lat != 0.0
+
     }
 
 
@@ -148,4 +157,28 @@ class MainScene: UIViewController {
     }
     
 }
+
+extension MainScene {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+
+        let latitude = location.coordinate.latitude
+        let longitude = location.coordinate.longitude
+
+        print("Latitude: \(latitude)")
+        print("Longitude: \(longitude)")
+        
+        lat = latitude
+        
+        print(lat)
+
+        // If you only need location once:
+        manager.stopUpdatingLocation()
+        
+        getLocation()
+    }
+}
+
+
 

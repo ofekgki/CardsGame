@@ -1,4 +1,5 @@
 import UIKit
+import CoreLocation
 
 extension UIViewController {
     
@@ -38,4 +39,48 @@ extension UIViewController {
     }
 }
 
+extension  GameScene: CallBackClock {
+    
+    func tick(ticks: Int) {
+        updateUI(value: ticks)
+    }
+    
+    }
 
+extension GameScene {
+    
+    struct Card {
+        let name: String
+        let value: Int
+        let imageName: String
+        
+    }
+}
+
+
+extension MainScene: CLLocationManagerDelegate {
+
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+
+        case .authorizedWhenInUse, .authorizedAlways:
+            manager.startUpdatingLocation()
+            print("Access to location granted")
+
+        case .denied, .restricted:
+            showToast(message: "Location permission denied")
+            print("Access to location denied")
+
+        case .notDetermined:
+            showToast(message: "Waiting for permission")
+            print("Access to location not determined")
+
+        @unknown default:
+            break
+        }
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Location error: \(error.localizedDescription)")
+    }
+}

@@ -18,7 +18,7 @@ class GameScene: UIViewController {
     
     @IBOutlet weak var game_LBL_westScore: UILabel!
     
-    private let POINTS_TO_WIN: Int = 2
+    private let POINTS_TO_WIN: Int = 10
     
     var playerName: String = ""
     
@@ -34,7 +34,6 @@ class GameScene: UIViewController {
     
     private var isFirst: Bool = true
 
-    
     private var Deck: [Card] = [
         Card(name: "The Magician", value: 1, imageName: "01-TheMagician"),
         Card(name: "The High Priestess", value: 2, imageName: "02-TheHighPriestess"),
@@ -131,11 +130,11 @@ class GameScene: UIViewController {
             
             if pcScore > playerScore {
                 gameOverVC.score = POINTS_TO_WIN
-                gameOverVC.winner = playerName
+                gameOverVC.winner = "PC"
             }
             else {
                 gameOverVC.score = POINTS_TO_WIN
-                gameOverVC.winner = "PC"
+                gameOverVC.winner = playerName
             }
         }
     }
@@ -146,7 +145,7 @@ class GameScene: UIViewController {
         randomIndexWest = Int.random(in: 0..<Deck.count)
         
         while randomIndexEast == randomIndexWest {
-            let randomIndexWest = Int.random(in: 0..<Deck.count)
+             randomIndexWest = Int.random(in: 0..<Deck.count)
         }
 
         game_IMG_eastCard.image = UIImage(named: Deck[randomIndexEast].imageName)
@@ -200,26 +199,5 @@ class GameScene: UIViewController {
             game_LBL_eastScore.text = "\(pcScore)"
             game_LBL_westScore.text = "\(playerScore)"
         }
-    }
-    
-    
-    
-}
-
-extension  GameScene: CallBackClock {
-    
-    func tick(ticks: Int) {
-        updateUI(value: ticks)
-    }
-    
-    }
-
-extension GameScene {
-    
-    struct Card {
-        let name: String
-        let value: Int
-        let imageName: String
-        
     }
 }
