@@ -134,11 +134,14 @@ class MainScene: UIViewController {
     func getLocation(){
  
         if lat >= 34.18754916832433 {
-            location = false
+        location = false
+            main_LBL_west.backgroundColor = UIColor(named: "BackgroundLocationColor")
 
         }
         else {
             location = true
+            main_LBL_east.backgroundColor = UIColor(named: "BackgroundLocationColor")
+
             
         }
         
