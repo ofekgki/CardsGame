@@ -18,7 +18,7 @@ class GameScene: UIViewController {
     
     @IBOutlet weak var game_LBL_westScore: UILabel!
     
-    private let POINTS_TO_WIN: Int = 10
+    private let POINTS_TO_WIN: Int = 3
     
     var playerName: String = ""
     
@@ -72,6 +72,8 @@ class GameScene: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        SoundManager.shared.backgroundMusicWhileGame()
+        
         if location {
             game_LBL_eastName.text = playerName
             game_LBL_westName.text = "PC"
@@ -123,6 +125,7 @@ class GameScene: UIViewController {
     // MARK: game logic
     
     func showCard(){
+                
         randomIndexEast = Int.random(in: 0..<Deck.count)
         
         randomIndexWest = Int.random(in: 0..<Deck.count)
@@ -137,11 +140,14 @@ class GameScene: UIViewController {
     }
     
     func hideCards() {
+        SoundManager.shared.playSoundEffect("CardDraw")
         game_IMG_eastCard.image = UIImage(named: BlankCard.imageName)
         game_IMG_westCard.image = UIImage(named: BlankCard.imageName)
     }
     
     func gameMove() {
+        
+        SoundManager.shared.playSoundEffect("CradDraw")
         
         showCard()
         
@@ -160,6 +166,7 @@ class GameScene: UIViewController {
     func endGame() {
         showToast(message: "Game Ended!!!")
         clock.stop()
+        SoundManager.shared.backgroundMusicAfterGame()
         performSegue(withIdentifier: "goToEnd", sender: self)
     }
     
@@ -171,9 +178,11 @@ class GameScene: UIViewController {
         if playerWon {
             playerScore += 1
             showToast(message: "Player Scored!")
+            SoundManager.shared.playSoundEffect("CardWon")
         } else {
             pcScore += 1
             showToast(message: "PC Scored!")
+            SoundManager.shared.playSoundEffect("CardLost")
         }
         
         updateScoreLabels()

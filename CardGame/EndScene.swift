@@ -15,6 +15,14 @@ class EndScene: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if (winner == "PC")
+            {
+            SoundManager.shared.playSoundEffect("GameLost")
+        }
+        else {
+            SoundManager.shared.playSoundEffect("GameWon")
+        }
+        
         end_LBL_endScore.text = "\(score)"
         
         end_LBL_winnerName.text = "\(winner) Won!"
