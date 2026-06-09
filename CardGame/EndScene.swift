@@ -20,7 +20,7 @@ class EndScene: UIViewController {
             SoundManager.shared.playSoundEffect("GameLost")
         }
         else {
-            SoundManager.shared.playSoundEffect("GameWon")
+            SoundManager.shared.playSoundEffect("GameWon") 
         }
         
         end_LBL_endScore.text = "\(score)"
