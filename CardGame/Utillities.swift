@@ -7,21 +7,36 @@ class ClockUtil{
     var callBackClock: CallBackClock?
     
     var timer: Timer?
+    
+    var isRunning: Bool {
+          return timer != nil
+      }
         
     func start(){
         
+        guard timer == nil else { return } 
+
         timer = Timer.scheduledTimer(
-        timeInterval: 1.0,
-         target: self,
-         selector: #selector(tickAccourd),
-         userInfo: nil,
-         repeats: true)
+            withTimeInterval: 1.0,
+            repeats: true){
+                [weak self] _ in self?.tickAccourd()
+            }
         
     }
     
     func stop(){
         timer?.invalidate()
         timer = nil
+        count = 0
+    }
+    
+    func pause(){
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    func resume(){
+        start()
     }
     
     @objc private func tickAccourd(){
@@ -36,9 +51,13 @@ class ClockUtil{
         print("Tick - \(count)")
         
         }
+    
+        deinit {
+        stop()
+    }
 }
 
-protocol CallBackClock{
+protocol CallBackClock : AnyObject{
     func tick(ticks: Int)
     
 }

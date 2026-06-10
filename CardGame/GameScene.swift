@@ -26,6 +26,8 @@ class GameScene: UIViewController {
     
     var pcScore: Int = 0
     
+    private var gameEnded = false
+    
     var location: Bool = false
     
     private var roundTimer: Int = 1
@@ -33,7 +35,7 @@ class GameScene: UIViewController {
     private var clock = ClockUtil()
     
     private var isFirst: Bool = true
-
+    
     private var Deck: [Card] = [
         Card(name: "The Magician", value: 1, imageName: "01-TheMagician"),
         Card(name: "The High Priestess", value: 2, imageName: "02-TheHighPriestess"),
@@ -64,7 +66,6 @@ class GameScene: UIViewController {
     private var randomIndexEast: Int = 0
     
     private var randomIndexWest: Int = 0
-
     
     
     // MARK: Start Of Class
@@ -84,16 +85,35 @@ class GameScene: UIViewController {
         }
         
         clock.callBackClock = self
-        clock.start()
         
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(appDidEnterBackground),
+            name: UIApplication.didEnterBackgroundNotification,
+            object: nil
+        )
+        
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(appWillEnterForeground),
+            name: UIApplication.willEnterForegroundNotification,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(appWillTerminate),
+            name: UIApplication.willTerminateNotification,
+            object: nil
+        )
+        
+        clock.start()
         
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        clock.stop()
-    }
 
+    
     
     func updateUI(value: Int) {
         
@@ -120,20 +140,20 @@ class GameScene: UIViewController {
             }
         }
     }
-        
-  
+    
+    
     // MARK: game logic
     
     func showCard(){
-                
+        
         randomIndexEast = Int.random(in: 0..<Deck.count)
         
         randomIndexWest = Int.random(in: 0..<Deck.count)
         
         while randomIndexEast == randomIndexWest {
-             randomIndexWest = Int.random(in: 0..<Deck.count)
+            randomIndexWest = Int.random(in: 0..<Deck.count)
         }
-
+        
         game_IMG_eastCard.image = UIImage(named: Deck[randomIndexEast].imageName)
         game_IMG_westCard.image = UIImage(named: Deck[randomIndexWest].imageName)
         
@@ -146,9 +166,8 @@ class GameScene: UIViewController {
     }
     
     func gameMove() {
-        
-        SoundManager.shared.playSoundEffect("CradDraw")
-        
+        SoundManager.shared.playSoundEffect("CardDraw")
+
         showCard()
         
         let eastValue = Deck[randomIndexEast].value
@@ -164,11 +183,15 @@ class GameScene: UIViewController {
     }
     
     func endGame() {
+        
+        gameEnded = true
+        
         showToast(message: "Game Ended!!!")
         clock.stop()
         SoundManager.shared.backgroundMusicAfterGame()
         performSegue(withIdentifier: "goToEnd", sender: self)
     }
+    
     
     func scoreWinner(isEastWinner: Bool) {
         
@@ -215,4 +238,31 @@ class GameScene: UIViewController {
             }
         }
     }
+    
+
+    // MARK: Clock Functions
+    @objc private func appDidEnterBackground() {
+        clock.pause()
+    }
+
+    @objc private func appWillTerminate() {
+        clock.stop()
+    }
+    
+    
+    @objc private func appWillEnterForeground() {
+        if !gameEnded {
+            clock.resume()
+        }
+    }
+
+
+    deinit {
+        clock.stop()
+        NotificationCenter.default.removeObserver(self)
+        print("GameScene deinit")
+    }
+    
+    
+    
 }

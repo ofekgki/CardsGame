@@ -104,7 +104,7 @@ class MainScene: UIViewController {
                  }
                  else {
                      
-                     let inputName = alertController.textFields![0].text
+                     let inputName = alertController.textFields![0].text?.capitalized
                      
                      UserDefaults.standard.set(inputName, forKey: "playerName")
                      
