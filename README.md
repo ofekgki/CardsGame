@@ -4,7 +4,8 @@ Project for a IOS Development course, in Afeka - the academic college of Enginee
 
 # Overview
 
-Card Game is a War - card game theme game application using Swift, in the game you should get higher card than the Pc in order to get a point, the first to 10 is the Winner!
+Card Game is a War - card game theme game application using Swift, in the game you should get higher card than the Pc in order to get a point, The game will go on for 10 rounds, get more points than the PC to Win!
+    In case of a tie you Lose!
 
 For demonstration check the video in the project files
 

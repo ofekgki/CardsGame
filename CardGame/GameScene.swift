@@ -17,9 +17,7 @@ class GameScene: UIViewController {
     @IBOutlet weak var game_LBL_westName: UILabel!
     
     @IBOutlet weak var game_LBL_westScore: UILabel!
-    
-    private let POINTS_TO_WIN: Int = 10
-    
+        
     var playerName: String = ""
     
     var playerScore: Int = 0
@@ -27,6 +25,8 @@ class GameScene: UIViewController {
     var pcScore: Int = 0
     
     private var gameEnded = false
+    
+    private var numberOfRounds: Int = 0
     
     var location: Bool = false
     
@@ -135,7 +135,7 @@ class GameScene: UIViewController {
             hideCards()
             game_LBL_time.text = "0"
             
-            if pcScore == POINTS_TO_WIN || playerScore == POINTS_TO_WIN {
+            if numberOfRounds == 10 {
                 endGame()
             }
         }
@@ -180,6 +180,8 @@ class GameScene: UIViewController {
         } else {
             showToast(message: "Tie!")
         }
+        
+        numberOfRounds += 1
     }
     
     func endGame() {
@@ -229,12 +231,16 @@ class GameScene: UIViewController {
             let gameOverVC = segue.destination as! EndScene
             
             if pcScore > playerScore {
-                gameOverVC.score = POINTS_TO_WIN
+                gameOverVC.score = pcScore
                 gameOverVC.winner = "PC"
             }
-            else {
-                gameOverVC.score = POINTS_TO_WIN
+            else if playerScore > pcScore {
+                gameOverVC.score = playerScore
                 gameOverVC.winner = playerName
+            }
+            else {
+                gameOverVC.score = pcScore
+                gameOverVC.winner = "PC"
             }
         }
     }
