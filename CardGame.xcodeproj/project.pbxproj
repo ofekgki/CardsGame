@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		48DE658E2FCF888C00162D53 /* Game Demo.mov in Resources */ = {isa = PBXBuildFile; fileRef = 48DE657C2FCF888C00162D53 /* Game Demo.mov */; };
+		487607882FE7EA7E001C461B /* Game Demo.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = 487607872FE7EA7E001C461B /* Game Demo.MP4 */; };
 		48DE65952FCF8A9F00162D53 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 48DE65942FCF8A9F00162D53 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		48DE657C2FCF888C00162D53 /* Game Demo.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "Game Demo.mov"; sourceTree = "<group>"; };
+		487607872FE7EA7E001C461B /* Game Demo.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Game Demo.MP4"; sourceTree = "<group>"; };
 		48DE65942FCF8A9F00162D53 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		48E738CE2FC0A36400E291B9 /* CardGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -55,7 +55,7 @@
 				48E738D02FC0A36400E291B9 /* CardGame */,
 				48E738CF2FC0A36400E291B9 /* Products */,
 				48DE65942FCF8A9F00162D53 /* README.md */,
-				48DE657C2FCF888C00162D53 /* Game Demo.mov */,
+				487607872FE7EA7E001C461B /* Game Demo.MP4 */,
 			);
 			sourceTree = "<group>";
 		};
@@ -131,7 +131,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48DE658E2FCF888C00162D53 /* Game Demo.mov in Resources */,
+				487607882FE7EA7E001C461B /* Game Demo.MP4 in Resources */,
 				48DE65952FCF8A9F00162D53 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -18,7 +18,7 @@ class GameScene: UIViewController {
     
     @IBOutlet weak var game_LBL_westScore: UILabel!
     
-    private let POINTS_TO_WIN: Int = 3
+    private let POINTS_TO_WIN: Int = 10
     
     var playerName: String = ""
     
